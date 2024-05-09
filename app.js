@@ -30,7 +30,7 @@ const transporter = nodemailer.createTransport({
 
 // Route to handle form submissions
 app.post('/submit-form', (req, res) => {
-  const { name, email, phone, checkInDate, checkOutDate } = req.body;
+  const { name, email, phone, checkInDate, checkOutDate, roomNumber, category, country, otherRequest } = req.body;
 
   // Email content
   const mailOptions = {
@@ -44,6 +44,10 @@ app.post('/submit-form', (req, res) => {
       <p><strong>Phone:</strong> ${phone}</p>
       <p><strong>Check-in Date:</strong> ${checkInDate}</p>
       <p><strong>Check-out Date:</strong> ${checkOutDate}</p>
+      <p><strong>No of Rooms:</strong> ${roomNumber}</p>
+      <p><strong>Room Category:</strong> ${category}</p>
+      <p><strong>Country:</strong> ${country}</p>
+      <p><strong>Other Request:</strong> ${otherRequest}</p>
     `
   };
 
@@ -57,6 +61,39 @@ app.post('/submit-form', (req, res) => {
       res.status(200).send('Form submitted successfully.');
     }
   });
+
+ // Email content
+ const mailOptions2 = {
+  from: 'hostelemmaus@gmail.com',
+  to: email,
+  subject: 'Your reservation has well received',
+  html: `
+    <p>Your reservation has well received. We will get back to you soon for confirming your reservation. Thanks for booking with us!</p>
+    <h4>Booking  Submission</h4>
+    <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Phone:</strong> ${phone}</p>
+    <p><strong>Check-in Date:</strong> ${checkInDate}</p>
+    <p><strong>Check-out Date:</strong> ${checkOutDate}</p>
+    <p><strong>No of Rooms:</strong> ${roomNumber}</p>
+    <p><strong>Room Category:</strong> ${category}</p>
+    <p><strong>Country:</strong> ${country}</p>
+    <p><strong>Other Request:</strong> ${otherRequest}</p>
+  `
+};
+
+// Send email
+transporter.sendMail(mailOptions2, (error, info) => {
+  if (error) {
+    console.log('Error occurred:', error);
+    res.status(500).send('Error occurred, form submission failed.');
+  } else {
+    console.log('Email sent:', info.response);
+    res.status(200).send('Form submitted successfully.');
+  }
+});
+
+
 });
 
 // Start server
