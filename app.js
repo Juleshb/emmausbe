@@ -35,7 +35,7 @@ app.post('/submit-form', (req, res) => {
   // Email content
   const mailOptions = {
     from: 'hostelemmaus@gmail.com',
-    to: 'habaruremajules@gmail.com',
+    to: 'hostelemmaus@gmail.com',
     subject: 'New Booking',
     html: `
       <h2>New Booking Form Submission</h2>
@@ -102,7 +102,7 @@ app.post('/contact', (req, res) => {
   // Email content
   const mailOptions = {
     from: 'hostelemmaus@gmail.com',
-    to: 'habaruremajules@gmail.com',
+    to: 'hostelemmaus@gmail.com',
     subject: 'Contact us message',
     html: `
       <h2>Contact Form Submission</h2>
