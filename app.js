@@ -108,7 +108,7 @@ app.post('/contact', (req, res) => {
       <h2>Contact Form Submission</h2>
       <p><strong>Name:</strong> ${names}</p>
       <p><strong>Email:</strong> ${emails}</p>
-      <p><strong>Phone:</strong> ${message}</p>
+      <p><strong>Message:</strong> ${message}</p>
       
     `
   };
