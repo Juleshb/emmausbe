@@ -158,6 +158,69 @@ transporter.sendMail(mailOptions3, (error, info) => {
 
 });
 
+app.post('/submit-hall', (req, res) => {
+  const { name, email, phone, checkInDate, checkOutDate, category, otherRequest } = req.body;
+
+  // Email content
+  const mailOptions = {
+    from: 'hostelemmaus@gmail.com',
+    to: 'hostelemmaus@gmail.com',
+    subject: 'New Room/Hall',
+    html: `
+      <h2>New Room/Hall Form Submission</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>Check-in Date:</strong> ${checkInDate}</p>
+      <p><strong>Check-out Date:</strong> ${checkOutDate}</p>
+      <p><strong>Conferance type:</strong> ${category}</p>
+      <p><strong>Other Request:</strong> ${otherRequest}</p>
+    `
+  };
+
+  // Send email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error occurred:', error);
+      res.status(500).send('Error occurred, form submission failed.');
+    } else {
+      console.log('Email sent:', info.response);
+      res.status(200).send('Form submitted successfully.');
+    }
+  });
+
+ // Email content
+ const mailOptions3 = {
+  from: 'hostelemmaus@gmail.com',
+  to: email,
+  subject: 'Your Booking has well received',
+  html: `
+    <p>Your Booking has well received. We will get back to you soon for confirming your reservation. Thanks for booking with us!</p>
+    <h4>New Order Submission</h4>
+    <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Phone:</strong> ${phone}</p>
+    <p><strong>Check-in Date:</strong> ${checkInDate}</p>
+    <p><strong>Check-out Date:</strong> ${checkOutDate}</p>
+    <p><strong>Conferance type:</strong> ${category}</p>
+    <p><strong>Other Request:</strong> ${otherRequest}</p>
+  `
+};
+
+// Send email
+transporter.sendMail(mailOptions3, (error, info) => {
+  if (error) {
+    console.log('Error occurred:', error);
+    res.status(500).send('Error occurred, form submission failed.');
+  } else {
+    console.log('Email sent:', info.response);
+    res.status(200).send('Form submitted successfully.');
+  }
+});
+
+
+});
+
 app.post('/contact', (req, res) => {
   const { names, emails, message } = req.body;
 
